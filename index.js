@@ -23,5 +23,19 @@ const structured = {
 // x.doStuff();
 
 const { doStuff } = require('./serialize/serialize');
-const result = doStuff(structured);
-console.log(result);
+// const result = doStuff(
+//   structured
+//   // (path, value) => ['да этож намбер!!!!', value, path, 'ну все. давайте дальше'],
+// );
+
+console.log(doStuff(structured));
+console.log('-------');
+console.log(doStuff(
+  structured,
+  (path, value) => ['да этож намбер!!!!', value, path, 'ну все. давайте дальше'],
+));
+console.log('-------');
+console.log(doStuff(
+  structured,
+  (path, value, key) => [`${key} property in ${path} objext is: ${value} number`],
+));
