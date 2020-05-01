@@ -1,4 +1,4 @@
-const flattenTag = (path, obj) => {
+const flattenTag = (path, obj, c) => {
   const result = [];
 
   Object
@@ -21,17 +21,26 @@ const flattenTag = (path, obj) => {
           result.push(`${valPath} = "${val}"`);
           break;
         case 'number':
-          result.push(`${valPath} = ${val}`);
+          if (c)
+            result.push(...c(valPath, val, key));
+          else
+            result.push(`${valPath} = ${val}`);
           break;
         case 'object':
-          result.push(...flattenTag(valPath, val));
+          result.push(...flattenTag(valPath, val, c));
       }
     });
 
   return result;
 }
 
-const doStuff = obj2Flatten =>
-  flattenTag('root>', obj2Flatten).join('\n');
+const doStuff = (obj2Flatten, c) =>
+  flattenTag(
+    'root>',
+    obj2Flatten,
+    c
+  )
+    .join('\n');
+
 
 module.exports = { doStuff };
