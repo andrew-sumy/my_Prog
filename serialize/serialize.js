@@ -1,15 +1,27 @@
 const doStuff = obj2Flatten => {
 
   const result = [];
+  const flattenTag =
+    (path, obj) => Object.keys(obj)
+      .forEach(key => {
+        const val = obj[key];
+        const xType = typeof val;
+        const valPath = `${path}.${key}`;
 
-  for (const x in obj2Flatten)
-    result.push(`${x} <${typeof obj2Flatten[x]}>`);
-  // console.log(x, typeof obj2Flatten[x], obj2Flatten[x]);
+        switch (xType) {
+          case 'string':
+          case 'number':
+            result.push(`${valPath} = ${val}`);
+            break;
+          case 'object':
+            flattenTag(valPath, val);
+            break;
+        }
+      });
 
-  // console.log(result);
-  console.log(result.join('\n'));
+  flattenTag('root>', obj2Flatten);
 
-  return 'obj.prop[idx].nestedProp = "val"';
+  return result.join('\n');
 };
 
 module.exports = { doStuff };
