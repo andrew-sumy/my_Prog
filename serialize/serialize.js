@@ -2,8 +2,9 @@ const doStuff = obj2Flatten => {
 
   const result = [];
   const flattenTag =
-    (path, obj) => Object.keys(obj)
-      .forEach(key => {
+    (path, obj) => Object
+      .keys(obj)
+      .map(key => {
         const val = obj[key];
         const xType = typeof val;
         const valPath = `${path}.${key}`;
@@ -11,17 +12,15 @@ const doStuff = obj2Flatten => {
         switch (xType) {
           case 'string':
           case 'number':
-            result.push(`${valPath} = ${val}`);
-            break;
+            return `${valPath} = ${val}`;
           case 'object':
-            flattenTag(valPath, val);
-            break;
+            return flattenTag(valPath, val);
         }
       });
 
-  flattenTag('root>', obj2Flatten);
+  console.log(flattenTag('root>', obj2Flatten));
 
-  return result.join('\n');
+  return 'x';
 };
 
 module.exports = { doStuff };
