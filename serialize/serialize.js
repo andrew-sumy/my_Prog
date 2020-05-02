@@ -6,15 +6,7 @@ const flattenTag = (path, obj, c) => {
     .forEach(key => {
       const val = obj[key];
       const xType = typeof val;
-
-      // const valPath =
-      //   Array.isArray(obj)
-      //     ?
-      //     `${path}[${key}]`
-      //     :
-      //     `${path}.${key}`;
       const valPath = `${path}${Array.isArray(obj) ? `[${key}]` : `.${key}`}`;
-
 
       switch (xType) {
         case 'string':
@@ -30,7 +22,6 @@ const flattenTag = (path, obj, c) => {
           result.push(...flattenTag(valPath, val, c));
       }
     });
-
   return result;
 }
 
@@ -41,6 +32,5 @@ const doStuff = (obj2Flatten, c) =>
     c
   )
     .join('\n');
-
 
 module.exports = { doStuff };
