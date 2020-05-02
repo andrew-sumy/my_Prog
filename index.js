@@ -18,15 +18,7 @@ const structured = {
   },
 };
 
-
-// const x = require('./serialize/serialize');
-// x.doStuff();
-
 const { doStuff } = require('./serialize/serialize');
-// const result = doStuff(
-//   structured
-//   // (path, value) => ['да этож намбер!!!!', value, path, 'ну все. давайте дальше'],
-// );
 
 console.log(doStuff(structured));
 console.log('-------');
